@@ -108,6 +108,47 @@ Estimator API      l          n       l        l       l
     
 
 
+-> Optimization of single gpu is given in : tensorflow.org/guide/gpu_performance_analysis
+
+-> Initially a very little GPU resource is allocated.
+   As the need increases, GPU resource is allocated more to tensorflow process.
+   Memory is not released as it would couse fragmentation.
+   This is performed by seting memory growth by
+       tf.config.experimental.set_memory_growth(gpu, True)
+       where 'gpu' is name of the device: /device:GPU:0
+
+-> We can set the limit of amount of gpu resource to be used by
+       tf.config.set_logical_device_configuration(
+                                                   gpus[0],
+                                                   [tf.config.LogicalDeviceConfiguration(memory_limit=1024)]
+                                                  )
+
+
+
+-> tf.distribut.get_strategy()   will return the current strategy.
+
+
+-> with strategy.scope():
+        ----
+        ----
+        ----
+   
+   // the variables declared inside this scope will be done according to the strategy for distribution defined earlier.
+
+What should be in scope and what should be outside?
+
+There are a number of requirements on what needs to happen inside the scope. However, in places where we have information about which strategy is in use, we often enter the scope for the user, so they don't have to do it explicitly (i.e. calling those either inside or outside the scope is OK).
+
+Anything that creates variables that should be distributed variables must be called in a strategy.scope. This can be accomplished either by directly calling the variable creating function within the scope context, or by relying on another API like strategy.run or keras.Model.fit to automatically enter it for you. Any variable that is created outside scope will not be distributed and may have performance implications. Some common objects that create variables in TF are Models, Optimizers, Metrics. Such objects should always be initialized in the scope, and any functions that may lazily create variables (e.g., Model.call(), tracing a tf.function, etc.) should similarly be called within scope. Another source of variable creation can be a checkpoint restore - when variables are created lazily. Note that any variable created inside a strategy captures the strategy information. So reading and writing to these variables outside the strategy.scope can also work seamlessly, without the user having to enter the scope.
+
+Some strategy APIs (such as strategy.run and strategy.reduce) which require to be in a strategy's scope, enter the scope automatically, which means when using those APIs you don't need to explicitly enter the scope yourself.
+When a tf.keras.Model is created inside a strategy.scope, the Model object captures the scope information. When high level training framework methods such as model.compile, model.fit, etc. are then called, the captured scope will be automatically entered, and the associated strategy will be used to distribute the training etc. See a detailed example in distributed keras tutorial. WARNING: Simply calling model(..) does not automatically enter the captured scope -- only high level training framework APIs support this behavior: model.compile, model.fit, model.evaluate, model.predict and model.save can all be called inside or outside the scope.
+The following can be either inside or outside the scope:
+Creating the input datasets
+Defining tf.functions that represent your training step
+Saving APIs such as tf.saved_model.save. Loading creates variables, so that should go inside the scope if you want to train the model in a distributed way.
+Checkpoint saving. As mentioned above - checkpoint.restore may sometimes need to be inside scope if it creates variables.
+
 
 
 
