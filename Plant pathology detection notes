@@ -152,12 +152,199 @@ Checkpoint saving. As mentioned above - checkpoint.restore may sometimes need to
 
 
 
+Random and Seed (Basics)
+------------------------
+
+1)Program
+
+print(tf.random.uniform([1]))  # generates 'A1'
+print(tf.random.uniform([1]))  # generates 'A2'
+
+print(tf.random.uniform([1]))  # generates 'A3'
+print(tf.random.uniform([1]))  # generates 'A4'
+
+---
+
+tf.Tensor([0.59750986], shape=(1,), dtype=float32)
+tf.Tensor([0.9099175], shape=(1,), dtype=float32)
+tf.Tensor([0.00412071], shape=(1,), dtype=float32)
+tf.Tensor([0.3780992], shape=(1,), dtype=float32)
+
+
+
+2)Program
+
+tf.random.set_seed(1234)
+print(tf.random.uniform([1]))  # generates 'A1'
+print(tf.random.uniform([1]))  # generates 'A2'
+
+output
+---
+
+tf.Tensor([0.5380393], shape=(1,), dtype=float32)
+tf.Tensor([0.3253647], shape=(1,), dtype=float32)
+
+
+-----------------------
+-----------------------
+
+tf.random.set_seed(1234)
+print(tf.random.uniform([1]))  # generates 'A1'
+print(tf.random.uniform([1]))  # generates 'A2'
+
+output
+---
+
+tf.Tensor([0.5380393], shape=(1,), dtype=float32)
+tf.Tensor([0.3253647], shape=(1,), dtype=float32)
+
+
+------------------------
+------------------------
+
+tf.random.set_seed(1235)
+print(tf.random.uniform([1]))  # generates 'A3'
+print(tf.random.uniform([1]))  # generates 'A4'
+
+
+output
+---
+
+tf.Tensor([0.5310235], shape=(1,), dtype=float32)
+tf.Tensor([0.8249339], shape=(1,), dtype=float32)
 
 
 
 
+3)Program
 
 
+tf.random.set_seed(1234)
+
+@tf.function
+def f():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+
+@tf.function
+def g():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+print(f())  # prints '(A1, A2)'
+print(g())  # prints '(A1, A2)'
+
+
+output
+---
+
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.13047123], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1689806], dtype=float32)>)
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.13047123], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1689806], dtype=float32)>)
+
+--------------------------
+--------------------------
+
+tf.random.set_seed(14)
+@tf.function
+def j():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+    
+@tf.function
+def k():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+def l():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+print(j())  # print '(A3, A4)'
+print(k())  # print '(A3, A4)'
+print(l())  # print '(A5, A6)'   because @tf.function is not given on top of it.
+
+
+output
+---
+
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.2974385], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1901201], dtype=float32)>)
+
+
+
+4)Program
+
+
+tf.random.set_seed(1234)
+@tf.function
+def foo():
+    a = tf.random.uniform([1], seed=1)
+    b = tf.random.uniform([1], seed=1)
+    return a, b
+print(foo())        # prints '(A1, A1)'
+print(foo(), "\n")  # prints '(A2, A2)'
+
+
+
+@tf.function
+def bar():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+def bar2():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+print(bar())              # prints '(A1, A2)'
+print(bar2(), "\n")       # prints '(A3, A4)'
+
+
+
+@tf.function
+def bar3():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+@tf.function
+def bar4():
+    a = tf.random.uniform([1])
+    b = tf.random.uniform([1])
+    return a, b
+
+print(bar3())    # print '(A1, A2)'
+print(bar3())    # print '(A5, A6)'
+print(bar4())    # print '(A1, A2)'
+print(bar4())    # print '(A5, A6)'
+
+
+
+output
+---
+
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1689806], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1689806], dtype=float32)>)
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.7539084], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.7539084], dtype=float32)>) 
+
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.13047123], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1689806], dtype=float32)>)
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.5380393], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.3253647], dtype=float32)>) 
+
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.13047123], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1689806], dtype=float32)>)
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.6087816], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.7539084], dtype=float32)>)
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.13047123], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.1689806], dtype=float32)>)
+(<tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.6087816], dtype=float32)>, <tf.Tensor: shape=(1,), dtype=float32, numpy=array([0.7539084], dtype=float32)>)
+
+
+
+
+--------------------------------------------------
+--------------------------------------------------
 
 
 
