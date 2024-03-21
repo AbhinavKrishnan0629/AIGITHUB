@@ -152,6 +152,87 @@ Checkpoint saving. As mentioned above - checkpoint.restore may sometimes need to
 
 
 
+-> Class structure used for different cases in keras:
+
+
+1) Model class:
+
+from keras.models import Model
+from keras.layers import Dense, Input
+
+class MyModel(Model):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.dense1 = Dense(64, activation='relu')
+        self.dense2 = Dense(10, activation='softmax')
+
+    def call(self, inputs):
+        x = self.dense1(inputs)
+        return self.dense2(x)
+
+# Usage:
+model = MyModel()
+
+
+
+2) Layer classes
+
+from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D
+
+class MyModel(Model):
+    def __init__(self):
+        super(MyModel, self).__init__()
+        self.conv1 = Conv2D(32, (3, 3), activation='relu')
+        self.pooling = MaxPooling2D(pool_size=(2, 2))
+        self.flatten = Flatten()
+        self.dense = Dense(10, activation='softmax')
+
+    def call(self, inputs):
+        x = self.conv1(inputs)
+        x = self.pooling(x)
+        x = self.flatten(x)
+        return self.dense(x)
+
+
+
+3) Custom layers
+
+from keras.layers import Layer
+
+class MyCustomLayer(Layer):
+    def __init__(self, output_dim, **kwargs):
+        self.output_dim = output_dim
+        super(MyCustomLayer, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        self.kernel = self.add_weight(name='kernel', 
+                                      shape=(input_shape[1], self.output_dim),
+                                      initializer='uniform',
+                                      trainable=True)
+        super(MyCustomLayer, self).build(input_shape)
+
+    def call(self, inputs):
+        return K.dot(inputs, self.kernel)
+
+    def compute_output_shape(self, input_shape):
+        return (input_shape[0], self.output_dim)
+
+
+
+4) Callbacks
+
+from keras.callbacks import Callback
+
+class CustomCallback(Callback):
+    def on_epoch_end(self, epoch, logs=None):
+        print("End of epoch:", epoch)
+
+# Usage:
+model.fit(x_train, y_train, epochs=10, callbacks=[CustomCallback()])
+
+
+
+
 Random and Seed (Basics)
 ------------------------
 
