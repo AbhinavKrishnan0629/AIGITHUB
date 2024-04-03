@@ -1,0 +1,6 @@
+Types of EDA
+-> Number of Columns, rows
+-> Number of missing values in each column
+-> Pie chart of distribution of each unique value of each column
+-> Number classes in each column
+-> Bar graph of word count of top 50 uncleaned words in text data

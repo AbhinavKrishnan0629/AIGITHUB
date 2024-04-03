@@ -1,0 +1,7 @@
+ROC curve and AUC score
+-> Graph used a metric for binary classification models
+-> Reciever's Operating Charecteristics curve is a graph of True Positive rate against False Positive rate
+   (TPR against FPR)
+-> AUC: Area Under Curve
+-> AUC score: If 1, indicates the model can perfectly separate the positive and negative class irrespective of
+   Threshold
