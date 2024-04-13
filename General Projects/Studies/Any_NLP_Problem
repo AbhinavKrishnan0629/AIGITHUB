@@ -1,0 +1,24 @@
+from sklearn import preprocessing
+
+preprocessing.LabelEncoder
+
+from sklearn.model_selection import train_test_split
+
+
+
+
+
+=========================================================================================================================
+
+
+
+
+
+Things to be covered:
+-> Working of Latent Dirichlet Allocation, Non Negative Matrix Factorization, LabelEncoder
+-> Stratify splitting
+
+
+Topics covered:
+-> tfidf, count features, logistic regression, svm, xgboost, naive bayes, grid search, word vectors, LSTM,
+   GRU, ensembling
