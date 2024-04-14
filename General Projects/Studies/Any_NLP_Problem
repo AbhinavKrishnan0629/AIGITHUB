@@ -4,10 +4,11 @@ preprocessing.LabelEncoder
 
 from sklearn.model_selection import train_test_split
 
+model.predict_proba(xvalid)
 
+from sklearn.linear_model import LogisticRegression
 
-
-
+from sklearn.naive_bayes import MultinomialNB
 =========================================================================================================================
 
 
@@ -17,8 +18,49 @@ from sklearn.model_selection import train_test_split
 Things to be covered:
 -> Working of Latent Dirichlet Allocation, Non Negative Matrix Factorization, LabelEncoder
 -> Stratify splitting
+-> TF-IDF, Logistic regression
+-> Parameters of TF-IDF, how to tune to get best settings for TF-IDF
+-> What is TF-IDF followed by logistic regression means
+-> What are linear models and non linear models
+-> what is parameter C in logistic Regresion
+-> Which model is better for which cases
+-> Uses and strength areas of each model
+-> How to choose combinations of models
 
 
 Topics covered:
 -> tfidf, count features, logistic regression, svm, xgboost, naive bayes, grid search, word vectors, LSTM,
    GRU, ensembling
+
+-> Always try to start with TF-IDF and CountVectorizer features, they work almost all the time.
+
+-> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
