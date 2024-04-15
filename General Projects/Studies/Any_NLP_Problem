@@ -9,6 +9,10 @@ model.predict_proba(xvalid)
 from sklearn.linear_model import LogisticRegression
 
 from sklearn.naive_bayes import MultinomialNB
+
+from sklearn import decomposition
+
+from sklearn.svm import SVC
 =========================================================================================================================
 
 
@@ -26,6 +30,15 @@ Things to be covered:
 -> Which model is better for which cases
 -> Uses and strength areas of each model
 -> How to choose combinations of models
+-> What is Singular Value Decomposition
+-> Things to consider while passing data to SVM
+-> What is XGBOOST
+-> Learn parameters of all models and how to implement in tensorflow
+-> Why is the training time of SVM model takes so long
+-> Full form of SVD
+-> What is fasttext(GloVe, word2vec)
+-> You can download the GloVe vectors from here http://www-nlp.stanford.edu/data/glove.840B.300d.zip
+
 
 
 Topics covered:
@@ -34,7 +47,9 @@ Topics covered:
 
 -> Always try to start with TF-IDF and CountVectorizer features, they work almost all the time.
 
--> 
+-> Hyperparameter optimization
+
+Grid Search
 
 
 
