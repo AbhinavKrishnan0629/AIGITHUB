@@ -71,17 +71,25 @@ Links
 
 
 
-Topics covered:
+
 -> tfidf, count features, logistic regression, svm, xgboost, naive bayes, grid search, word vectors, LSTM,
    GRU, ensembling
 
 -> Always try to start with TF-IDF and CountVectorizer features, they work almost all the time.
 
 -> Hyperparameter optimization
-
 Grid Search
 
 
+Topic modelling
+----------------------------
+
+-> Remove words that are present in 80 - 90 percent of documents as data preprocessing.
+
+Latent Dirichlet Allocation
+-> 2 parts: 1) Words that belong to document we know
+            2) Words that belong to a topic or probability of a word that belonging to a 
+               topic that we need to calculate
 
 
 
