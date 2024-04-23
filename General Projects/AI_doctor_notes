@@ -61,3 +61,33 @@ Word embeddings features
 
 
 -> Word mover's distance : WMD
+
+
+
+Feameworks for evaluating LLM models
+-> Big bench
+-> Glue Benchmark
+-> SuperGlue Benchmark
+-> OpenAI Moderation API
+-> MMLU
+-> EleutherAI LM Eval
+-> OpenAI Evals
+-> Adversarial NLI
+-> Language Interpretability Tool
+
+
+Problems that are faced during evaluation of LLM
+-> Authenticity
+-> Speed
+-> Grammar and Readability
+-> Unbiased
+-> Backtracking
+-> Safety and responsibility
+-> Understanding the concept
+-> Text operation
+-> IQ, EQ
+-> Versatile
+-> Real time update
+-> Cost
+-> Consistancy
+-> Extent of prompt engineering
