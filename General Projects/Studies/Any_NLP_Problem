@@ -13,6 +13,17 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn import decomposition
 
 from sklearn.svm import SVC
+
+
+NCE: Noise Contrastive Estimation
+ReLu: Rectified Linear Unit
+NER: Named Entity Recognition
+CNN: Convolutional Neural Network
+RNN: Recurrent Neural Network
+RSS value: Residual Sum of Squares
+RSE value: Residual Standard Error
+RMSE value: Root Mean Square Error
+TextFuseNet
 =========================================================================================================================
 
 
@@ -38,6 +49,25 @@ Things to be covered:
 -> Full form of SVD
 -> What is fasttext(GloVe, word2vec)
 -> You can download the GloVe vectors from here http://www-nlp.stanford.edu/data/glove.840B.300d.zip
+
+
+Things to consider to build a good pipeline
+-> Data type consistancy, make sure you are dealing with same datatype
+-> After reading a file and updating to dataset(refer ch3 word to vec skip gram alg, def builddataset(words) to reduce    memory usage
+-> Loss alone is not a good metric of accuracy as it might occur due to overfitting.
+   Word analogy test can be a good metric.
+   More about word analogy test :
+-> Visualisation of higher dim data to lower dim data can be done with the help of TensorBoard
+   tensorboard_word_embeddings.ipynb1
+-> CBOW works better in synctactic tasks and skip gram works better in semantic tasks.
+-> Skip gram algorithm works better than CBOW for larger dataset
+
+
+Links
+-> Google analogy dataset: http://download.
+   tensorflow.org/data/questions-words.txt
+-> Bigger Analogy Test Set (BATS): http://vsm.
+   blackbird.pw/bats
 
 
 

@@ -478,7 +478,387 @@ All these can affect the speed of functioning.
 
 
 
+NCE: Noise Contrastive Estimation
 
+
+
+
+
+1) always try to scale the data
+2) check for spelling errors in user input
+3) make sure that training set and test set have the same columns or both are in same shape
+
+
+
+
+1) Data type consistancy, make sure you are dealing with same datatype
+2) After reading a file and updating to dataset(refer ch3 word to vec skip gram alg, def builddataset(words) to reduce memory usage
+3) Loss alone is not a good metric of accuracy as it might occur due to overfitting.
+Word analogy test can be a good metric.
+More about word analogy test :
+
+Google analogy dataset: http://download.
+tensorflow.org/data/questions-words.txt
+
+Bigger Analogy Test Set (BATS): http://vsm.
+blackbird.pw/bats
+4) Visualisation of higher dim data to lower dim data can be done with the help of TensorBoard
+tensorboard_word_embeddings.ipynb1
+5) CBOW works better in synctactic tasks and skip gram works better in semantic tasks.
+6) Skip gram algorithm works better than CBOW for larger dataset
+
+
+
+
+
+
+
+
+Handling outliers
+-------------------------------------------
+First question to ask yourself:
+Are outliers and Noise the same?
+
+Outliers: An Outlier is that observation which is significantly different from all other observations.
+Anomalies: A false data point made by different processes than the rest of the data
+
+Outliers are sometimes helpful
+
+Deletion of outliers is not always healthy unless and until you analyze the data
+
+Outliers affect : mean, standard deviation, range
+Outliers doesnt affect : Median, IQR
+
+Drop an outlier if:
+1) If you are sure its wrong
+2) You have a lot of data in hand
+3) You have an option to go back
+
+Dont drop an outlier if:
+1) Your results are critical
+2) You have a lot of outliers (around 25 percent or so)
+
+Outlier detection: A data point significantly off the average and, depending on the goal, either removing or resolving them from the analysis to prevent skewing is known as outlier detection.
+
+Outliers are caused by:
+1) Intentional(dummy outliers are created to test detection models)
+2) Data processing errors(Data manipulation or data set unintended mutations)
+3) Sampling errors(extracting or mixing data from wrong or various sources)
+4) Natural(not an error but novelties the data)
+5) Data entry error(Human error)
+
+
+Different ways to treat an outlier
+
+1) Trimming
+- Fastest way
+- Makes the dataset thin if many outliers are present
+
+2) Capping
+- Consider all data points above a threshold value as outliers
+- Capping number: no of outliers hence found
+
+3) Considering them as missing values
+
+4) Discretization
+- Making groups. Considering all outliers in a separate group and forcing them to behave the way other groups do
+
+
+Detecting outliers
+
+1) Normal distributions
+- Here use empirical normal distribution formulas, ex: mean+or-3*stddeviation beyond which all are outliers
+
+2) Skewed distributions
+- Use Inter - Quartile Range(IQR) approximity rule
+
+Important methods to detect outliers are:
+1) Z-score
+2) IQR
+3) DBSCAN : Density Based Spatial Clustering Application with Noise
+- Mahalanobis distance method(for multivariate outliers), Box and whishker or box plot - B Tukeys method
+4) LOF    : Local Outlier Factor
+5) one-class SVM
+6) PyCaret
+7) PyOD
+8) Prophet
+9) 
+
+-SciPy and Numpy are used to visualize
+
+
+
+mean = sum(values) / len(values)
+differences = [(value - mean)**2 for value in values]
+sum_of_differences = sum(differences)
+standard_deviation = (sum_of_differences / (len(values) - 1)) ** 0.5
+
+print(standard_deviation)
+
+
+------------------------------------------------------------------
+
+
+------------------------------------------------------------------
+
+
+
+Data preprocessing notes
+
+
+
+Data quality : accuracy, completeness, consistancy, believability, interpretable, timeliness
+
+disguised missing data : people fill fake data in mandatory fields
+
+factors that affect:
+accuracy - people, data transmission, faulty data collection instruments, technological
+
+Data cleaning: Filling missing values, smoothening noisy values, removing outliers, removing inconsistancies
+
+Data integration
+
+Data tranformation
+
+Data reduction: dimensionality reduction(wavelet transforms, PCA, attribute subset selection, attribute construction),
+                numerosity reduction(data are replace by parametric models(regression or log linear models) or
+                                                     non parametric models(histograms, clusters, sampling, or data
+                                                                             aggregation)
+                                    )
+                
+Data cleaning
+-------------
+Missing values:
+***(ask this question, is this value missing because it was not recorded or because it doesnt exist?)
+
+parameters for 'fillna' function in pandas for filling in missing values :
+{‘backfill’, ‘bfill’, ‘ffill’, None}, default None
+
+1) Ignore the tuple(loss of other attribute data)
+2) Manual data entry(time consuming for large dataset)
+3) Use a global constant to fill the missing places(not foolproof, cause the model would think its some special
+                                 value and derive some other conclusions)
+4) Use of central tendency(mean : symmetric data, median : skewed data distribution)
+5) Prediction of missing values in same class: if the model is for classification task, take mean or median for each                                    class and use this value to fill missing places of corresponding class tuples
+6) Fill in the most probable value: Find it by using regression, Bayesian formalism, Decision tree to find most
+                                 probable value
+
+
+handling outliers:
+1) Visualise outliers
+2) Identify which rows of dataframe has outliers
+3) Implement various strategies to handle outliers
+
+Outlier: a data point three or more times standard deviation from the mean
+Z-score : number of standard deviation a data point is from the mean
+Higher the Z-score, the data point is farther from the mean
+
+
+Noisy data:
+They are some random error or variance in measured variable
+they can be found out by boxplots and scatter plots
+some smoothening techniqes are also data discretization(data transformation) or data reduction
+1) Binning(By bin meadians or boundaries in sorted data values)
+2) Regression
+
+
+
+How to perform data cleaning as a process
+1) Discrepency detection: 
+        Causes: poor data entry forms, human errors, deliberate errors, instrument errors, data integration
+   Study about meta data
+   
+   Data scrubbing tools
+   Data auditing tools
+   Data migration tools
+   ETL(Extraction, Tranforming, Loading)
+   Potter's wheel
+
+
+
+
+Data Integration
+
+Correlation coefficient for numeric data (chi square test)
+Covariance analysis of numeric data      (chi square test)
+
+
+
+
+Data reduction
+
+Attribute subset selection
+Attribute creation
+Discrete Wavelet Transform(DWT)
+Principal Component Analysis(PCA)
+
+Sampling (most commonly used)
+Histogram
+Data Cube Aggregation
+
+
+
+
+
+Data transformation
+
+Smoothing(to remove noise data):
+Binning, Regression, Clustering
+
+Attribute construction:
+
+
+Aggregation:
+
+
+Normalization:Always standardize or normalize the data.
+Especially useful in classification problems
+Types:
+min-max normalization, z-score normalization(performed when min and max are not known) mean absolute deviation is more robust to outliers than standard deviation and while using this method save the mean and standard deviation so that future data can also be standardized uniformly, normalization by decimal scaling
+
+
+Discretization: Entropy is the most commonly used measure
+Categorizing the values
+supervised discretization, unsupervised discretization, split points, cut points, top-down discretization or splitting,
+bottom-up discretization or merging
+ChiMerge technique
+
+
+Concept hierarchy generation for nominal data
+
+
+
+
+------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------
+
+
+
+Exploratory data analysis
+
+
+def: discover patterns, spot anomalies, test hypothesis, check assumptions
+
+
+steps:
+
+1) Read the data head columns and first 10 rows
+2) Understand the shape, columns and data types
+3) Identify attribute type
+4) Print index of all value counts of each column
+5) describe each column and find out whether each column in categorical or continuous
+6) print categorical count values of categorical attributes
+7) identify missing values
+8) convert all "." symbol to nan, None values to nan, missing values to nan
+9) convert all numerical features either to float or to int, note: it has to be uniform
+10) print mean, variance, std
+11) plot kdeplot from seaborn to find whether two columns are closely related or not
+12) If two columns have similar mean, variance, std, min, max etc then that may conclude that they are 
+    closely related.
+13) kurtosis method to measure peakedness of the data
+
+
+
+
+
+
+Kurtosis is a method used to find outliers in data
+
+platykurtic(thin tails, kurtosis value is close to 3)
+mesokurtic(medium tails, kurtosis value is less than 3)
+leptokurtic(fat tails, kurtosis value is greater than 3)
+
+If kurtosis value is extremely large, then that shows a possibility for outliers
+
+Finding 25, 50 and 75 quartile range
+
+Inter Quartile Range(IQR) is a measure of variability, it is the distance between the first
+and third quartile
+
+Correlation is the measure of strength and direction of relationship between a dependent and
+an independent feature
+
+Pearson correlation coefficient p(x, y) = covariance(x, y)/(std(x) * std(y))
+
+it varies from -1 to 1
+
+positive value: direct relationship
+negative value: Indirect relationship
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------
+
+
+Time series notes
+
+
+Time series: Stationary and Non stationary
+
+Stationary: observations like mean and variance are consistant over time and do not depend on time
+
+Stationary process: A process that generates a stationary series of observations
+Stationary model  : A model that describes stationary series of observations
+Trend stationary  : A time series that doesnt exhibit a trend
+Season stationary : A time series that doesnt exhibit seasonality
+Strictly stationary
+
+Generally make your time series stationary
+Its easier for models to work with stationary time series
+Remove trend and seasonality from time series
+
+Its advised to treat properties of time series being stationary or not as another piece of information for feature engineering
+
+
+Methods to check for stationarity
+1) Look at plots: visually check for trends and seasonality
+2) Summary statistics: you can review the summary statistics for your data for seasons or random partitions and check for obvious or large differences
+3) Statistical tests
+
+Augmented Dicky Fuller test(Unit root test)
+It determines how strongly a time series is affected by trend
+It uses an autoregressive model and optimizes an information criterion over different lag values
+
+
+Making the time series stationary:
+->if there is a positive general trend, then use transformation like log, square root, cube root
+->Aggregation, taking average over time like monthly or yearly average
+->Smoothing: taking rolling means
+->Polynomial fitting: Fit a regression model
+
+Eliminating trend and seasonality:
+->Differencing: taking difference with a particular time lag
+->Decomposition: modeling both trend and seasonality and removing them from model
+
+
+
+ARIMA model
+parameters:
+p -> Number of auto regressive terms its dependent on
+q -> Number of moving average terms
+d -> Number of nonseasonal differences
+
+p, q are determined by two graphs: ACF and PACF
+
+ACF(Autocorrelation Function)
+Correlation of the TS with a lagged version of itself
+
+PACF(Partial Autocorrelation Function)
+
+
+p -> lag value where pacf plot first crosses the upper confidence level
+q -> lag value where acf plot first crosses the upper confidence level
+
+RSS value: Residual Sum of Squares
+RSE value: Residual Standard Error
+RMSE value: Root Mean Square Error
 
 
 
