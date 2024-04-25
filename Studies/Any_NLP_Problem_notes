@@ -24,6 +24,11 @@ RSS value: Residual Sum of Squares
 RSE value: Residual Standard Error
 RMSE value: Root Mean Square Error
 TextFuseNet
+LSA
+PLSA
+CTM
+MSE
+MAE
 =========================================================================================================================
 
 
@@ -70,6 +75,9 @@ Links
    blackbird.pw/bats
 
 
+-> Linear regression makes straight line decisions, and output varies from neg to pos infinity.
+   It uses Mean Squared Error (MSE) or Mean Absolute Error (MAE).
+-> Logistic regression makes classification predictions and output is probability of each class.
 
 
 -> tfidf, count features, logistic regression, svm, xgboost, naive bayes, grid search, word vectors, LSTM,
@@ -83,15 +91,25 @@ Grid Search
 
 Topic modelling
 ----------------------------
-
+-> Represent a document as a collection of topics
 -> Remove words that are present in 80 - 90 percent of documents as data preprocessing.
+-> Other techniques: Latent Semantic Analysis, Probabilistic Latent Semantic Analysis, Correlated Topic Modelling
 
 Latent Dirichlet Allocation
 -> 2 parts: 1) Words that belong to document we know
             2) Words that belong to a topic or probability of a word that belonging to a 
                topic that we need to calculate
-
-
+-> 1) Distributional assumption: Similar topics have similar words
+   2) Statistical mixture assumption: A document may contain multiple topics
+-> Generation process: First it learns document-topic relations and then topic-words correlation
+-> Topic modelling is just the opposite, It assigns topics randomly to each word and then 
+   iteratively improves assignment by Gibbs Sampling
+-> Hyper parameters in LDA:
+        -> document topic density factor: alpha
+        -> topic word density factor    : beta
+        -> number of topics expected in corpus of document   : K
+   Lower value of alpha and lower value of beta is always prefered.
+-> 
 
 
 
